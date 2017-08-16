@@ -18,7 +18,7 @@ cd $HOME
 which pv > /dev/null || apt-get install -y pv
 [ -z "$CARD" ] && quit 1 "Usage: $0 <card>"
 [ -b "$CARD" ] || quit 1 "Error: card:$CARD not is block device"
-mount | grep /dev/sdc && quit 1 "Errot: device is mounted"
+mount | grep $CARD && quit 1 "Errot: device is mounted"
 
 echo "Info: write image"
 cat opiz-debian-jessie-3.4.113.img.gz.?? | gzip -d | pv | dd if=/dev/stdin of=$CARD bs=1M || exit 2
